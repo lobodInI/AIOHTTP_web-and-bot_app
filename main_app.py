@@ -7,6 +7,11 @@ from bson.objectid import ObjectId
 
 async def shut_user_url_get(request):
     url_form_request = """<html lang="en-us">
+    <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:,">
+    <title>URL Shortener</title>
+    </head>
     <form action="/" method="POST">
   <div align="center" id="logo"><h1><a href="http://0.0.0.0:8080" class="logo">Short URL</a><h1>
   </div>
@@ -40,9 +45,12 @@ async def shut_user_url_post(request):
 
 async def show_user_url(request):
     name_url = request.match_info.get('name_url')
-    database = request.app["db"]
-    collection = database['shortener']
-    obj_url = await collection.find_one({"_id": ObjectId(name_url)})
+    try:
+        database = request.app["db"]
+        collection = database['shortener']
+        obj_url = await collection.find_one({"_id": ObjectId(name_url)})
+    except BaseException:
+        return web.Response(text="Not found user url")
     return web.HTTPFound('https://' + obj_url['user_url'])
 
 
