@@ -30,7 +30,7 @@ async def shut_user_url_get(request):
 
 async def shut_user_url_post(request):
     result = await request.text()
-    user_url = result.replace('user_url=', '').replace("%2F", "/")
+    user_url = result.replace('user_url=', '').replace("%2F", "/")   # додав ще один replace щоб повертало строку корректно
     #user_url = user_url.replace("%2F", "/")
     database = request.app["db"]
     collection = database['shortener']
