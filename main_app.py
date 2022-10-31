@@ -71,5 +71,6 @@ app.add_routes([web.get('/', shut_user_url_get),
                 web.post('/', shut_user_url_post)])
 app["db"] = db
 
+
 if __name__ == '__main__':
     web.run_app(app)
